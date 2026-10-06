@@ -51,9 +51,9 @@ header h1{margin-bottom:1.25rem}
 .card-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.1rem}
 .card-top h2{font-size:1.35rem;margin:0}
 .card-top p{margin:0;color:var(--muted);font-size:.95rem}
-.stamps{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
-.stamp{appearance:none;background:transparent;border:2px dashed var(--line);border-radius:50%;aspect-ratio:1;display:grid;place-items:center;cursor:pointer;color:var(--muted);font:700 1.05rem/1.1 var(--display);padding:0;position:relative;transition:transform .15s ease}
-.stamp small{display:block;font:400 .72rem/1.2 var(--body);margin-top:.15rem}
+.stamps{display:grid;grid-template-columns:repeat(6,minmax(0,5.5rem));gap:.75rem;justify-content:space-between}
+.stamp{appearance:none;background:transparent;border:2px dashed var(--line);border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font:700 1.05rem/1.1 var(--display);padding:0;position:relative;transition:transform .15s ease}
+.stamp small{display:block;font:400 .68rem/1.15 var(--body);margin-top:.1rem;max-width:90%}
 .stamp[aria-selected="true"]{border:3px solid var(--stamp);color:var(--stamp);background:var(--stamp-soft);transform:rotate(-8deg)}
 .stamp[aria-selected="true"]::after{content:"";position:absolute;inset:6px;border:1.5px solid var(--stamp);border-radius:50%;opacity:.6}
 .stamp:hover{transform:rotate(-4deg)}
