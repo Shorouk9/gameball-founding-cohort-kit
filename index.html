@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founding Cohort Launch Kit</title>
+<meta name="description" content="An independent proposal by Shorouk: how to pick, onboard and prove success with the first founding brands of Gameball's agentic loyalty product.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF2EF; --card:#FFFFFF; --ink:#17242C; --muted:#4F5E66; --line:#C9D3CE;
+  --stamp:#3346B8; --stamp-soft:#E3E7F8;
+  --go:#1E7F55; --go-soft:#DDF0E6; --prep:#9A5D10; --prep-soft:#F6E9D4; --stop:#A93434; --stop-soft:#F6DEDE;
+  --display:"Bricolage Grotesque", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#141B1F; --card:#1C252B; --ink:#E7ECEA; --muted:#A9B5B9; --line:#33424A;
+    --stamp:#8C9BFF; --stamp-soft:#262E52;
+    --go:#5CC795; --go-soft:#183528; --prep:#E0A452; --prep-soft:#3A2B15; --stop:#F08080; --stop-soft:#3D1F1F;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+a{color:var(--stamp);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--stamp);outline-offset:3px;border-radius:4px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
+.wide{max-width:64rem;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0}
+h1{font-size:clamp(2.4rem,7vw,4.4rem);font-weight:800;letter-spacing:-.025em}
+h2{font-size:clamp(1.65rem,4vw,2.3rem);font-weight:700;letter-spacing:-.015em;margin-bottom:.75rem}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1rem}
+.lede{font-size:1.25rem;line-height:1.5;color:var(--ink);max-width:38rem}
+.muted{color:var(--muted)}
+.small{font-size:.92rem}
+
+/* header */
+header{padding:3.5rem 0 1rem}
+.disclaimer{display:inline-block;font-size:.88rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;margin-bottom:1.75rem}
+header h1{margin-bottom:1.25rem}
+
+/* stamp card */
+.card-shell{margin:2.5rem auto 0;background:var(--card);border:2px dashed var(--line);border-radius:22px;padding:1.5rem 1.5rem 1.25rem;position:relative}
+.card-shell::before,.card-shell::after{content:"";position:absolute;top:50%;width:26px;height:26px;border-radius:50%;background:var(--paper);transform:translateY(-50%)}
+.card-shell::before{left:-14px}.card-shell::after{right:-14px}
+.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.card-top h2{font-size:1.35rem;margin:0}
+.card-top p{margin:0;color:var(--muted);font-size:.95rem}
+.stamps{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+.stamp{appearance:none;background:transparent;border:2px dashed var(--line);border-radius:50%;aspect-ratio:1;display:grid;place-items:center;cursor:pointer;color:var(--muted);font:700 1.05rem/1.1 var(--display);padding:0;position:relative;transition:transform .15s ease}
+.stamp small{display:block;font:400 .72rem/1.2 var(--body);margin-top:.15rem}
+.stamp[aria-selected="true"]{border:3px solid var(--stamp);color:var(--stamp);background:var(--stamp-soft);transform:rotate(-8deg)}
+.stamp[aria-selected="true"]::after{content:"";position:absolute;inset:6px;border:1.5px solid var(--stamp);border-radius:50%;opacity:.6}
+.stamp:hover{transform:rotate(-4deg)}
+.stamp[aria-selected="true"]:hover{transform:rotate(-8deg)}
+.week-panels{margin-top:1.4rem;border-top:1px solid var(--line);padding-top:1.25rem}
+.week h3{font-size:1.45rem;margin-bottom:.35rem}
+.week .goal{color:var(--muted);margin-bottom:1rem}
+.week-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem}
+.week ul{margin:0;padding-left:1.15rem}
+.week li{margin-bottom:.35rem}
+.week .side h4{font:700 .95rem var(--body);margin:0 0 .3rem}
+.week .side p{font-size:.95rem;margin-bottom:.9rem}
+.exit{background:var(--go-soft);border-radius:10px;padding:.7rem .9rem;font-size:.95rem}
+.exit strong{color:var(--go)}
+.js .week[hidden]{display:none}
+@media (max-width:640px){
+  .stamps{gap:.4rem}.stamp{font-size:.9rem}.stamp small{display:none}
+  .week-grid{grid-template-columns:1fr}
+  .card-shell{padding:1.1rem}
+}
+@media (prefers-reduced-motion:reduce){.stamp,.stamp:hover{transition:none;transform:none}.stamp[aria-selected="true"]{transform:none}}
+
+/* sections */
+section{padding:3.5rem 0 0}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.5rem}
+.summary div{border-left:3px solid var(--stamp);padding-left:.9rem}
+.summary b{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:.2rem}
+@media (max-width:700px){.summary{grid-template-columns:1fr}}
+
+/* scorecard */
+.scorecard{background:var(--card);border-radius:18px;padding:1.5rem;margin-top:1.5rem;display:grid;grid-template-columns:1.55fr 1fr;gap:2rem;border:1px solid var(--line)}
+.criteria{list-style:none;margin:0;padding:0}
+.criteria li{border-bottom:1px solid var(--line)}
+.criteria li:last-child{border-bottom:0}
+.criteria label{display:grid;grid-template-columns:1.4rem 1fr auto;gap:.75rem;align-items:start;padding:.8rem 0;cursor:pointer}
+.criteria input{width:1.2rem;height:1.2rem;margin-top:.2rem;accent-color:var(--stamp)}
+.criteria .why{display:block;color:var(--muted);font-size:.9rem;margin-top:.15rem}
+.criteria .pts{font:700 .95rem var(--display);color:var(--muted);white-space:nowrap}
+.result{position:sticky;top:1rem;align-self:start;text-align:left}
+.score{font:800 4.2rem/1 var(--display);letter-spacing:-.03em}
+.score span{font-size:1.4rem;color:var(--muted);font-weight:500}
+.meter{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:.9rem 0 1rem}
+.meter i{display:block;height:100%;width:0;background:var(--stamp);transition:width .25s ease}
+.verdict{border-radius:12px;padding:.85rem 1rem;font-size:.98rem}
+.verdict b{display:block;font-family:var(--display);font-size:1.15rem;margin-bottom:.2rem}
+.v-go{background:var(--go-soft)}.v-go b{color:var(--go)}
+.v-prep{background:var(--prep-soft)}.v-prep b{color:var(--prep)}
+.v-stop{background:var(--stop-soft)}.v-stop b{color:var(--stop)}
+.bands{margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.bands p{margin:0 0 .25rem}
+@media (max-width:760px){.scorecard{grid-template-columns:1fr}.result{position:static}}
+
+.mix{margin-top:2rem}
+.mix ul{padding-left:1.2rem}
+
+/* tables */
+.table-wrap{overflow-x:auto;margin-top:1.25rem;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.97rem}
+th,td{text-align:left;vertical-align:top;padding:.8rem 1rem;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font:700 .95rem var(--display);background:var(--stamp-soft)}
+td:first-child{font-weight:700}
+.tier{font-weight:700;color:var(--stamp)}
+
+.rhythm{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem 1.75rem;margin-top:1.25rem}
+.rhythm div{border-top:2px solid var(--ink);padding-top:.6rem}
+.rhythm b{font-family:var(--display)}
+@media (max-width:640px){.rhythm{grid-template-columns:1fr}}
+
+.notes{counter-reset:none;list-style:none;padding:0;margin:1.25rem 0 0}
+.notes li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;margin-bottom:.8rem}
+.notes b{font-family:var(--display);font-size:1.08rem;display:block;margin-bottom:.25rem}
+
+.about{margin:4rem 0 0;padding:2rem 0;border-top:2px solid var(--ink)}
+footer{padding:2rem 0 3rem;font-size:.88rem;color:var(--muted)}
+footer ul{padding-left:1.1rem}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="disclaimer">An independent proposal by Shorouk. Not affiliated with or endorsed by Gameball.</p>
+  <h1>Launching the founding cohort</h1>
+  <p class="lede">Gameball is opening its new agentic loyalty product to a small group of founding brands. This kit is how I would pick those brands, get each one live in six weeks, and prove whether it works.</p>
+</header>
+
+<div class="wide">
+  <div class="card-shell" id="pilot">
+    <div class="card-top">
+      <h2>The six-week pilot</h2>
+      <p>One stamp per week. Select a week to see the plan.</p>
+    </div>
+    <div class="stamps" role="tablist" aria-label="Pilot weeks">
+      <button class="stamp" role="tab" id="t1" aria-controls="w1" aria-selected="true">W1<small>Kickoff</small></button>
+      <button class="stamp" role="tab" id="t2" aria-controls="w2" aria-selected="false" tabindex="-1">W2<small>Connect</small></button>
+      <button class="stamp" role="tab" id="t3" aria-controls="w3" aria-selected="false" tabindex="-1">W3<small>Soft launch</small></button>
+      <button class="stamp" role="tab" id="t4" aria-controls="w4" aria-selected="false" tabindex="-1">W4<small>Full launch</small></button>
+      <button class="stamp" role="tab" id="t5" aria-controls="w5" aria-selected="false" tabindex="-1">W5<small>Optimise</small></button>
+      <button class="stamp" role="tab" id="t6" aria-controls="w6" aria-selected="false" tabindex="-1">W6<small>Decide</small></button>
+    </div>
+
+    <div class="week-panels">
+      <div class="week" role="tabpanel" id="w1" aria-labelledby="t1">
+        <h3>Week 1: Kickoff and baseline</h3>
+        <p class="goal">Agree what success means before anything is switched on.</p>
+        <div class="week-grid">
+          <ul>
+            <li>60-minute kickoff with the brand's loyalty or CRM owner and an executive sponsor.</li>
+            <li>Agree the 3 metrics the brand cares about most and how each is measured.</li>
+            <li>Capture the baseline: repeat-purchase rate, members' share of orders, and current traffic from AI assistants.</li>
+            <li>Data handover: platform access, member data fields, consent and privacy sign-off (PDPL or GDPR).</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, brand loyalty owner</p>
+            <div class="exit"><strong>Done when</strong> the baseline numbers are signed off by the brand.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w2" aria-labelledby="t2" hidden>
+        <h3>Week 2: Connect and check the data</h3>
+        <p class="goal">Make sure what an AI assistant learns about each member is correct.</p>
+        <div class="week-grid">
+          <ul>
+            <li>Connect the brand's loyalty data (tier, points, purchase history) to the new layer.</li>
+            <li>Run a member match check: what share of members can be recognised reliably.</li>
+            <li>Test with internal accounts: does the assistant see the right tier and balance?</li>
+            <li>Prepare a holdout group so results can be compared fairly later.</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, Gameball engineering, brand IT contact</p>
+            <div class="exit"><strong>Done when</strong> at least 90% of members match and test accounts show correct balances.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w3" aria-labelledby="t3" hidden>
+        <h3>Week 3: Soft launch</h3>
+        <p class="goal">Switch on for a small slice and watch closely.</p>
+        <div class="week-grid">
+          <ul>
+            <li>Go live for 10 to 20% of members, or one market only.</li>
+            <li>Daily check of errors and data mismatches for the first five days.</li>
+            <li>A shared channel with the brand for anything that looks wrong.</li>
+            <li>Log every product issue within 24 hours, tagged by severity.</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, brand loyalty owner</p>
+            <div class="exit"><strong>Done when</strong> five days pass with no wrong balances shown to customers.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w4" aria-labelledby="t4" hidden>
+        <h3>Week 4: Full launch and first readout</h3>
+        <p class="goal">Open to all eligible members and share the first numbers.</p>
+        <div class="week-grid">
+          <ul>
+            <li>Expand to all eligible members, keeping the holdout group untouched.</li>
+            <li>First weekly readout: recognition rate, assistant-driven orders, early lift against the holdout.</li>
+            <li>Flag any brand whose AI-assistant traffic is too small to read results yet.</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, brand loyalty owner, brand sponsor</p>
+            <div class="exit"><strong>Done when</strong> the brand has received and discussed its first readout.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w5" aria-labelledby="t5" hidden>
+        <h3>Week 5: Optimise</h3>
+        <p class="goal">Improve what members and assistants see, and capture the lessons.</p>
+        <div class="week-grid">
+          <ul>
+            <li>Adjust rewards and member offers that assistants can see, one change at a time.</li>
+            <li>30-minute interview with each brand team: what worked, what was hard, what is missing.</li>
+            <li>Group feedback into themes for the Gameball product team.</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, Gameball product</p>
+            <div class="exit"><strong>Done when</strong> each brand has one tested change and a feedback interview logged.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w6" aria-labelledby="t6" hidden>
+        <h3>Week 6: Results and decision</h3>
+        <p class="goal">Decide per brand: expand, continue or stop.</p>
+        <div class="week-grid">
+          <ul>
+            <li>Results review with each brand sponsor against the week 1 baseline.</li>
+            <li>Decision per brand using the go/no-go rules below.</li>
+            <li>Draft a case study with every brand that saw a positive result.</li>
+            <li>One-page summary of product feedback for the Gameball team before public launch.</li>
+          </ul>
+          <div class="side">
+            <h4>Owners</h4>
+            <p>Gameball onboarding lead, brand sponsor, Gameball leadership</p>
+            <div class="exit"><strong>Done when</strong> every brand has a written decision and next step.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="wrap" aria-labelledby="why">
+  <h2 id="why">Why a launch plan matters now</h2>
+  <p>On 3 October 2026, Gameball's CEO opened a waitlist for founding brands to try a layer that passes each customer's relationship with a brand to the AI assistants shopping on their behalf. AI shopping is growing fast, but it is still early: AI-referred retail traffic grew 393% year on year in Q1 2026, while OpenAI scaled back ChatGPT's in-chat checkout in March 2026.</p>
+  <p>That makes the first cohort a learning exercise as much as a launch. The brands chosen, and how carefully they are onboarded, will decide what Gameball learns before going public.</p>
+  <div class="summary">
+    <div><b>Pick well</b>6 to 8 brands that can actually produce a readable result.</div>
+    <div><b>Launch safely</b>Data checks and a soft launch before any customer sees a balance.</div>
+    <div><b>Prove it</b>A baseline, a holdout group and agreed go/no-go rules.</div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="pick">
+  <h2 id="pick">Pick the right brands</h2>
+  <p>Use this check for every brand on the waitlist. Tick what is true for the brand you are looking at. The criteria and weights are my proposal, built to favour brands that can give a clear result in six weeks.</p>
+</section>
+
+<div class="wide">
+  <div class="scorecard" id="scorecard">
+    <ul class="criteria">
+      <li><label><input type="checkbox" data-pts="20"><span>Sells through a platform already connected to AI shopping assistants<span class="why">Shopify brands are the obvious first candidates.</span></span><span class="pts">20</span></label></li>
+      <li><label><input type="checkbox" data-pts="20"><span>Runs a Gameball loyalty program with 6+ months of member history<span class="why">Existing clients mean less setup and real tiers to pass on.</span></span><span class="pts">20</span></label></li>
+      <li><label><input type="checkbox" data-pts="15"><span>Loyalty members place at least 30% of orders<span class="why">Without enough members, there is nothing to measure.</span></span><span class="pts">15</span></label></li>
+      <li><label><input type="checkbox" data-pts="15"><span>Named owner on the brand side with 2 hours a week<span class="why">Pilots stall when nobody on the brand side owns them.</span></span><span class="pts">15</span></label></li>
+      <li><label><input type="checkbox" data-pts="10"><span>Members are identified by email or phone that matches store accounts<span class="why">Clean identity is what makes recognition reliable.</span></span><span class="pts">10</span></label></li>
+      <li><label><input type="checkbox" data-pts="10"><span>Category where people already shop with AI assistants<span class="why">Beauty, electronics, grocery reorders and travel move first.</span></span><span class="pts">10</span></label></li>
+      <li><label><input type="checkbox" data-pts="10"><span>Sponsor agrees to share results as a case study<span class="why">The cohort's job is also to create proof for launch.</span></span><span class="pts">10</span></label></li>
+    </ul>
+    <div class="result" aria-live="polite">
+      <div class="score"><span id="scoreNum">0</span><span> / 100</span></div>
+      <div class="meter" aria-hidden="true"><i id="meterBar"></i></div>
+      <div class="verdict v-stop" id="verdict"><b>Not yet</b>Keep on the waitlist for the public launch.</div>
+      <div class="bands">
+        <p>75 and above: founding-ready</p>
+        <p>50 to 74: ready after preparation</p>
+        <p>Below 50: not yet</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="wrap mix" aria-labelledby="mixh" style="padding-top:2rem">
+  <h3 id="mixh">A balanced cohort</h3>
+  <ul>
+    <li>6 to 8 brands, so each one gets a weekly check-in.</li>
+    <li>Mostly existing Gameball clients, to lower setup risk.</li>
+    <li>At least two markets, for example Saudi Arabia and the UAE.</li>
+    <li>At least three categories, and one brand with physical stores as well as online.</li>
+  </ul>
+</section>
+
+<section class="wrap" aria-labelledby="rh">
+  <h2 id="rh">The weekly rhythm</h2>
+  <p>The same routine for every brand keeps a small team on top of 6 to 8 pilots at once.</p>
+  <div class="rhythm">
+    <div><b>Monday:</b> shared tracker updated with each brand's status and risks.</div>
+    <div><b>Mid-week:</b> 30-minute check-in with each brand owner.</div>
+    <div><b>Within 24 hours:</b> every product issue logged and sent to the product team.</div>
+    <div><b>Friday:</b> one-page cohort summary for leadership.</div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="mh">
+  <h2 id="mh">How we'll know it worked</h2>
+  <p>One main measure, a few supporting ones, and guardrails that stop the pilot if something breaks. Targets are starting proposals, to be adjusted once real baselines are in.</p>
+</section>
+<div class="wrap">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Measure</th><th>What it tells us</th><th>Proposed target</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tier">Main</span><br>Repeat purchases through AI assistants</td><td>Do members keep buying from the brand when an assistant shops for them?</td><td>Higher than the holdout group</td></tr>
+        <tr><td>Recognition rate</td><td>Share of assistant-driven orders where the member's tier and points were passed on</td><td>90% or more</td></tr>
+        <tr><td>Pick rate vs holdout</td><td>How often assistants choose the brand for recognised members, compared with the holdout</td><td>Positive lift</td></tr>
+        <tr><td>Time to live</td><td>Days from signing to switched on for all members</td><td>21 days or fewer</td></tr>
+        <tr><td><span class="tier">Guardrail</span><br>Wrong balances shown</td><td>Customers shown incorrect points or tier</td><td>Zero</td></tr>
+        <tr><td><span class="tier">Guardrail</span><br>Reward cost per order</td><td>Whether lift is being bought with discounts</td><td>Within brand's agreed budget</td></tr>
+        <tr><td><span class="tier">Guardrail</span><br>Brand team effort</td><td>Hours per week the brand spends on the pilot</td><td>2 hours or fewer</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin-top:.9rem"><b>Go/no-go in week 6:</b> expand if recognition is 90% or more, lift is positive and no wrong balances were shown. Continue for 4 more weeks if traffic is too small to read. Stop if a guardrail was broken twice.</p>
+</div>
+
+<section class="wrap" aria-labelledby="rk">
+  <h2 id="rk">Risks and what to do about them</h2>
+</section>
+<div class="wrap">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Risk</th><th>Plan</th></tr></thead>
+      <tbody>
+        <tr><td>Too little AI-assistant traffic to read results in six weeks</td><td>Favour categories where AI shopping already happens, track recognition rate as an early signal, and extend to ten weeks where needed.</td></tr>
+        <tr><td>Wrong points or tier shown to a customer</td><td>Member match check in week 2, internal test accounts, and a soft launch before full rollout.</td></tr>
+        <tr><td>Brand team too busy</td><td>A named owner is an entry criterion; Gameball prepares templates so the brand only reviews and approves.</td></tr>
+        <tr><td>AI platforms change their rules</td><td>Stay independent of any single assistant and focus on recommendation, not checkout, which has already shifted once in 2026.</td></tr>
+        <tr><td>Privacy and consent</td><td>Share loyalty signals only, never more personal data than needed; legal sign-off under PDPL or GDPR in week 1.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<section class="wrap" aria-labelledby="nh">
+  <h2 id="nh">Lessons from today's onboarding</h2>
+  <p>Gameball's current self-serve onboarding already uses AI assistants to set up programs. Public reviews and help documents point to three failure points that the founding cohort should be designed around.</p>
+  <ul class="notes">
+    <li><b>Repeated answers instead of escalation</b>A merchant whose domain verification kept failing received the same copied steps several times. In the pilot, a second identical answer should trigger a hand-off to an engineer.</li>
+    <li><b>Hidden prerequisites</b>On Shopify, customers must be able to create accounts before they can join a loyalty program. The pilot's week 2 checklist should test every prerequisite before launch, not after.</li>
+    <li><b>A learning curve at the start</b>New users found settings hard to navigate at first. Founding brands should get a guided first session rather than a self-serve start.</li>
+  </ul>
+</section>
+
+<section class="wrap about" aria-labelledby="ab">
+  <h2 id="ab">About me</h2>
+  <p>I'm Shorouk, a customer success and implementation professional with 7+ years across SaaS and consumer platforms in the Middle East, including e-grocery SaaS at Instaleap, food delivery at Talabat, and AI and HR SaaS at Cercli. I co-founded Helpawi, an Egyptian Arabic conversational AI. I work AI-first and I'm based in Cairo.</p>
+  <p>I made this kit because launching a new product with its first customers is the work I enjoy most. I'd be glad to talk about running Gameball's founding cohort.</p>
+</section>
+</main>
+
+<footer class="wrap">
+  <p><b>Sources</b></p>
+  <ul>
+    <li>Ahmed Khairy, <a href="https://www.linkedin.com/in/ahmedmkhairy/">LinkedIn post on the founding cohort</a>, 3 October 2026</li>
+    <li>Egypt Innovate, <a href="https://egyptinnovate.com/en/news/us-based-lvlup-ventures-participates-in-gameballs-pre-series-a-funding-round">LvlUp Ventures joins Gameball's Pre-Series A</a></li>
+    <li>Paz.ai, <a href="https://www.paz.ai/agentic-commerce-statistics">Agentic commerce statistics 2026</a> (Adobe Analytics data)</li>
+    <li>Naturaily, <a href="https://naturaily.com/blog/agentic-commerce-shopify-guide">Agentic commerce: what's real and what failed</a></li>
+    <li>Shopify App Store, <a href="https://apps.shopify.com/gameball">Gameball reviews</a></li>
+    <li>Gameball docs, <a href="https://docs.gameball.co/product-documentation/getting-started/launch-checklist">Launch checklist</a></li>
+  </ul>
+  <p>Independent proposal based on public information. Gameball is a trademark of its owner; this page is not affiliated with or endorsed by Gameball.</p>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.stamp'));
+  function select(t,focus){
+    tabs.forEach(function(x){
+      var on=x===t;
+      x.setAttribute('aria-selected',on);
+      x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    if(focus)t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t)});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];
+      if(e.key==='Home')n=tabs[0];
+      if(e.key==='End')n=tabs[tabs.length-1];
+      if(n){e.preventDefault();select(n,true)}
+    });
+  });
+
+  var boxes=[].slice.call(document.querySelectorAll('#scorecard input'));
+  var num=document.getElementById('scoreNum'),bar=document.getElementById('meterBar'),v=document.getElementById('verdict');
+  function update(){
+    var s=boxes.reduce(function(a,b){return a+(b.checked?+b.dataset.pts:0)},0);
+    num.textContent=s; bar.style.width=s+'%';
+    if(s>=75){v.className='verdict v-go';v.innerHTML='<b>Founding-ready</b>Invite to the founding cohort.';}
+    else if(s>=50){v.className='verdict v-prep';v.innerHTML='<b>Ready after preparation</b>Fix the missing items first, then invite.';}
+    else{v.className='verdict v-stop';v.innerHTML='<b>Not yet</b>Keep on the waitlist for the public launch.';}
+  }
+  boxes.forEach(function(b){b.addEventListener('change',update)});
+  update();
+})();
+</script>
+</body>
+</html>
