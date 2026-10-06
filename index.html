@@ -127,6 +127,45 @@ td:first-child{font-weight:700}
 .notes li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;margin-bottom:.8rem}
 .notes b{font-family:var(--display);font-size:1.08rem;display:block;margin-bottom:.25rem}
 
+/* tracker */
+.tk-bar{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.25rem 0 .5rem}
+.btn{appearance:none;font:700 .95rem var(--body);border:1.5px solid var(--stamp);background:var(--card);color:var(--stamp);border-radius:999px;padding:.5rem 1rem;cursor:pointer}
+.btn:hover{background:var(--stamp-soft)}
+.btn.primary{background:var(--stamp);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.quiet{border-color:var(--line);color:var(--muted)}
+@media (prefers-color-scheme:dark){.btn.primary{color:#101524}}
+.tk-form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.25rem;margin-top:1rem}
+.tk-form h3{margin-bottom:.7rem}
+.fields{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.fields label,.pcard label{display:block;font-size:.85rem;color:var(--muted)}
+.fields input,.fields select,.pcard input,.pcard select{width:100%;margin-top:.2rem;font:400 1rem var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.45rem .55rem}
+.fields .wide2{grid-column:span 2}
+@media (max-width:700px){.fields{grid-template-columns:1fr 1fr}}
+.tk-note{font-size:.88rem;color:var(--muted);margin:.6rem 0 0}
+.tk-empty{border:2px dashed var(--line);border-radius:16px;padding:1.5rem;text-align:center;color:var(--muted);margin-top:1.25rem}
+.plist{margin-top:1.25rem;display:grid;gap:1rem}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.25rem}
+.phead{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:flex-start;margin-bottom:.8rem}
+.phead h3{font-size:1.2rem}
+.phead .meta{font-size:.9rem;color:var(--muted)}
+.pbadge{border-radius:12px;padding:.45rem .8rem;font-size:.9rem;max-width:20rem}
+.pbadge b{display:block;font-family:var(--display)}
+.pbadge.go{background:var(--go-soft)}.pbadge.go b{color:var(--go)}
+.pbadge.prep{background:var(--prep-soft)}.pbadge.prep b{color:var(--prep)}
+.pbadge.stop{background:var(--stop-soft)}.pbadge.stop b{color:var(--stop)}
+.pbadge.idle{background:var(--stamp-soft)}.pbadge.idle b{color:var(--stamp)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}
+@media (max-width:700px){.pgrid{grid-template-columns:1fr 1fr}}
+.flags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;font-size:.85rem}
+.flag{border-radius:999px;padding:.15rem .6rem;background:var(--stop-soft);color:var(--stop);font-weight:700}
+.pfoot{display:flex;justify-content:space-between;gap:.8rem;margin-top:.8rem;align-items:center;flex-wrap:wrap}
+.pfoot input{flex:1;min-width:12rem;margin:0}
+.weekdots{display:flex;gap:.25rem}
+.weekdots i{width:.7rem;height:.7rem;border-radius:50%;background:var(--line)}
+.weekdots i.on{background:var(--stamp)}
+.sr{position:absolute;left:-9999px}
+
 .about{margin:4rem 0 0;padding:2rem 0;border-top:2px solid var(--ink)}
 footer{padding:2rem 0 3rem;font-size:.88rem;color:var(--muted)}
 footer ul{padding-left:1.1rem}
@@ -348,6 +387,39 @@ footer ul{padding-left:1.1rem}
   <p class="small muted" style="margin-top:.9rem"><b>Go/no-go in week 6:</b> expand if recognition is 90% or more, lift is positive and no wrong balances were shown. Continue for 4 more weeks if traffic is too small to read. Stop if a guardrail was broken twice.</p>
 </div>
 
+<section class="wrap" aria-labelledby="th">
+  <h2 id="th">Track the pilots</h2>
+  <p>Add each brand, move it through the six weeks and enter the measures from the table above. The page applies the week 6 go/no-go rule for you and shows what to do next.</p>
+  <div class="tk-bar">
+    <button class="btn primary" id="tkAdd" type="button" aria-expanded="false" aria-controls="tkForm">Add a brand</button>
+    <button class="btn" id="tkExample" type="button">Load 3 example brands</button>
+    <button class="btn" id="tkExport" type="button">Export CSV</button>
+    <button class="btn" id="tkImportBtn" type="button">Import CSV</button>
+    <button class="btn quiet" id="tkClear" type="button">Clear all</button>
+    <input type="file" id="tkImport" accept=".csv,text/csv" class="sr" tabindex="-1" aria-label="Import CSV file">
+  </div>
+  <p class="tk-note" id="tkSaved">Pilots are saved in this browser only. Nothing is sent anywhere. Export a CSV to keep a copy or open it in a spreadsheet.</p>
+
+  <form class="tk-form" id="tkForm" hidden>
+    <h3>New brand</h3>
+    <div class="fields">
+      <label class="wide2">Brand name<input name="name" required maxlength="60" autocomplete="off"></label>
+      <label>Market<input name="market" maxlength="30" placeholder="e.g. Saudi Arabia"></label>
+      <label>Category<input name="category" maxlength="30" placeholder="e.g. Beauty"></label>
+      <label>Readiness score (0 to 100)<input name="score" type="number" min="0" max="100" inputmode="numeric"></label>
+      <label>Starting week<select name="week"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+      <div style="grid-column:span 2;align-self:end;display:flex;gap:.6rem;flex-wrap:wrap">
+        <button class="btn" type="button" id="tkUseScore">Use scorecard result</button>
+        <button class="btn primary" type="submit">Save brand</button>
+        <button class="btn quiet" type="button" id="tkCancel">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <div id="tkList" class="plist" aria-live="polite"></div>
+  <p class="tk-note">The week 6 rule used here is the one above: expand when recognition is 90% or more, lift is positive and no wrong balances were shown. Stop when a guardrail was broken twice. Otherwise keep going. Leave a measure empty until it has been measured.</p>
+</section>
+
 <section class="wrap" aria-labelledby="rk">
   <h2 id="rk">Risks and what to do about them</h2>
 </section>
@@ -432,6 +504,144 @@ document.documentElement.classList.add('js');
   }
   boxes.forEach(function(b){b.addEventListener('change',update)});
   update();
+})();
+/* pilot tracker */
+(function(){
+  var KEY='gb-cohort-pilots-v1',list=document.getElementById('tkList'),form=document.getElementById('tkForm'),
+      addBtn=document.getElementById('tkAdd'),saved=document.getElementById('tkSaved'),pilots=[],storeOk=true;
+  var FIELDS=['name','market','category','score','week','recog','lift','days','wrong','hours','reward','breaches','note'];
+  function load(){try{var r=localStorage.getItem(KEY);pilots=r?JSON.parse(r):[];if(!Array.isArray(pilots))pilots=[];}catch(e){pilots=[];storeOk=false;}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(pilots));}catch(e){storeOk=false;}
+    if(!storeOk)saved.textContent='This browser is blocking storage, so pilots will be lost when you close the page. Use Export CSV to keep them.';}
+  function num(v){return (v===''||v==null||isNaN(+v))?null:+v;}
+  function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+
+  function verdict(p){
+    var recog=num(p.recog),lift=num(p.lift),wrong=num(p.wrong),hours=num(p.hours),br=num(p.breaches)||0,wk=+p.week;
+    var flags=[];
+    if(wrong>0)flags.push('Wrong balances shown: '+wrong);
+    if(p.reward==='over')flags.push('Reward cost over budget');
+    if(hours!==null&&hours>2)flags.push('Brand effort over 2 hours a week');
+    if(br>=2)return {c:'stop',t:'Stop',d:'A guardrail was broken '+br+' times. Pause the pilot and fix the cause with the brand.',flags:flags};
+    var measured=recog!==null&&lift!==null&&wrong!==null;
+    if(wk<6){
+      if(flags.length)return {c:'prep',t:'Needs attention',d:'Fix the flagged guardrail before week 6.',flags:flags};
+      return {c:'idle',t:'Week '+wk+' of 6',d:measured?'On track. Keep the weekly check-in.':'Enter the measures as soon as they exist.',flags:flags};
+    }
+    if(!measured)return {c:'prep',t:'Decision due',d:'Week 6 is here. Enter recognition rate, lift and wrong balances to decide.',flags:flags};
+    if(recog>=90&&lift>0&&wrong===0)return {c:'go',t:'Expand',d:'All three conditions are met. Offer the brand the full launch.',flags:flags};
+    return {c:'prep',t:'Continue 4 more weeks',d:'Not all conditions are met yet. Keep going and look at traffic and recognition.',flags:flags};
+  }
+
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+  function field(p,key,label,type,attrs){
+    var l=el('label',null,label),i;
+    if(type==='select'){i=document.createElement('select');(attrs.opts||[]).forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];i.appendChild(op);});}
+    else{i=document.createElement('input');i.type=type;if(attrs.min!=null)i.min=attrs.min;if(attrs.max!=null)i.max=attrs.max;if(attrs.step)i.step=attrs.step;if(type==='number')i.inputMode='decimal';}
+    i.value=p[key]==null?'':p[key];
+    i.addEventListener('change',function(){p[key]=i.value;save();refresh(p);});
+    l.appendChild(i);return l;
+  }
+  var cardRefs={};
+  function build(p){
+    var card=el('article','pcard');card.dataset.id=p.id;
+    var head=el('div','phead'),left=el('div'),h=el('h3',null,p.name);
+    left.appendChild(h);
+    var meta=el('div','meta');left.appendChild(meta);
+    var badge=el('div','pbadge');head.appendChild(left);head.appendChild(badge);card.appendChild(head);
+    var g=el('div','pgrid');
+    g.appendChild(field(p,'week','Week','select',{opts:[1,2,3,4,5,6].map(function(n){return [n,'Week '+n];})}));
+    g.appendChild(field(p,'recog','Recognition rate (%)','number',{min:0,max:100}));
+    g.appendChild(field(p,'lift','Pick rate lift vs holdout (%)','number',{step:'any'}));
+    g.appendChild(field(p,'days','Days to live','number',{min:0}));
+    g.appendChild(field(p,'wrong','Wrong balances shown','number',{min:0}));
+    g.appendChild(field(p,'hours','Brand hours this week','number',{min:0,step:'any'}));
+    g.appendChild(field(p,'reward','Reward cost','select',{opts:[['','Not checked'],['ok','Within budget'],['over','Over budget']]}));
+    g.appendChild(field(p,'breaches','Guardrail breaches so far','number',{min:0}));
+    card.appendChild(g);
+    var flags=el('div','flags');card.appendChild(flags);
+    var foot=el('div','pfoot'),note=document.createElement('input');note.type='text';note.maxLength=140;note.placeholder='Note, e.g. waiting on store access';note.value=p.note||'';note.setAttribute('aria-label','Note for '+p.name);
+    note.addEventListener('change',function(){p.note=note.value;save();});
+    var dots=el('div','weekdots');dots.setAttribute('aria-hidden','true');for(var k=0;k<6;k++)dots.appendChild(el('i'));
+    var del=el('button','btn quiet','Remove');del.type='button';
+    del.addEventListener('click',function(){
+      if(del.dataset.arm){pilots=pilots.filter(function(x){return x.id!==p.id;});save();render();}
+      else{del.dataset.arm=1;del.textContent='Click again to remove';setTimeout(function(){delete del.dataset.arm;del.textContent='Remove';},3000);}
+    });
+    foot.appendChild(note);foot.appendChild(dots);foot.appendChild(del);card.appendChild(foot);
+    cardRefs[p.id]={meta:meta,badge:badge,flags:flags,dots:dots};
+    return card;
+  }
+  function refresh(p){
+    var r=cardRefs[p.id];if(!r)return;
+    var v=verdict(p),sc=num(p.score);
+    r.meta.textContent=[p.market,p.category,sc!==null?'Readiness '+sc+'/100':''].filter(Boolean).join(' | ');
+    r.badge.className='pbadge '+v.c;r.badge.textContent='';r.badge.appendChild(el('b',null,v.t));r.badge.appendChild(document.createTextNode(v.d));
+    r.flags.textContent='';v.flags.forEach(function(f){r.flags.appendChild(el('span','flag',f));});
+    [].forEach.call(r.dots.children,function(d,i){d.className=i<+p.week?'on':'';});
+  }
+  function render(){
+    list.textContent='';cardRefs={};
+    if(!pilots.length){list.appendChild(el('div','tk-empty','No brands yet. Add one, or load the three example brands to see how it works.'));return;}
+    pilots.forEach(function(p){list.appendChild(build(p));refresh(p);});
+  }
+
+  function mk(o){var p={id:uid()};FIELDS.forEach(function(k){p[k]=o[k]==null?'':String(o[k]);});if(!p.week)p.week='1';return p;}
+
+  addBtn.addEventListener('click',function(){var open=form.hidden;form.hidden=!open;addBtn.setAttribute('aria-expanded',open);if(open)form.elements.name.focus();});
+  document.getElementById('tkCancel').addEventListener('click',function(){form.hidden=true;addBtn.setAttribute('aria-expanded',false);form.reset();});
+  document.getElementById('tkUseScore').addEventListener('click',function(){form.elements.score.value=document.getElementById('scoreNum').textContent;});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();var d=new FormData(form),o={};d.forEach(function(v,k){o[k]=String(v).trim();});
+    if(!o.name)return;pilots.push(mk(o));save();render();form.reset();form.hidden=true;addBtn.setAttribute('aria-expanded',false);
+  });
+  document.getElementById('tkExample').addEventListener('click',function(){
+    var ex=[
+      {name:'Example brand A (beauty)',market:'Saudi Arabia',category:'Beauty',score:84,week:6,recog:93,lift:12,days:18,wrong:0,hours:1.5,reward:'ok',breaches:0,note:'Example data, not a real brand'},
+      {name:'Example brand B (grocery)',market:'UAE',category:'Grocery',score:78,week:3,recog:81,lift:'',days:24,wrong:1,hours:2.5,reward:'ok',breaches:1,note:'Example data, not a real brand'},
+      {name:'Example brand C (electronics)',market:'Egypt',category:'Electronics',score:66,week:6,recog:88,lift:4,days:30,wrong:0,hours:2,reward:'over',breaches:2,note:'Example data, not a real brand'}];
+    ex.forEach(function(o){pilots.push(mk(o));});save();render();
+  });
+  var clr=document.getElementById('tkClear');
+  clr.addEventListener('click',function(){
+    if(!pilots.length)return;
+    if(clr.dataset.arm){pilots=[];save();render();delete clr.dataset.arm;clr.textContent='Clear all';}
+    else{clr.dataset.arm=1;clr.textContent='Click again to clear all';setTimeout(function(){delete clr.dataset.arm;clr.textContent='Clear all';},3000);}
+  });
+
+  function csvCell(v){v=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+  document.getElementById('tkExport').addEventListener('click',function(){
+    if(!pilots.length)return;
+    var rows=[FIELDS.concat(['decision']).join(',')];
+    pilots.forEach(function(p){rows.push(FIELDS.map(function(k){return csvCell(p[k]);}).concat([csvCell(verdict(p).t)]).join(','));});
+    var blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='founding-cohort-pilots.csv';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  });
+  function parseCSV(t){
+    var rows=[],row=[],cur='',q=false,i,c;t=t.replace(/^﻿/,'');
+    for(i=0;i<t.length;i++){c=t[i];
+      if(q){if(c==='"'){if(t[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
+      else if(c==='"')q=true;
+      else if(c===','){row.push(cur);cur='';}
+      else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(cur);cur='';rows.push(row);row=[];}
+      else cur+=c;}
+    if(cur!==''||row.length){row.push(cur);rows.push(row);}
+    return rows.filter(function(r){return r.some(function(x){return x!=='';});});
+  }
+  var imp=document.getElementById('tkImport');
+  document.getElementById('tkImportBtn').addEventListener('click',function(){imp.click();});
+  imp.addEventListener('change',function(){
+    var f=imp.files[0];if(!f)return;
+    var rd=new FileReader();rd.onload=function(){
+      var rows=parseCSV(String(rd.result)),head=rows.shift()||[],n=0;
+      if(head.indexOf('name')<0){saved.textContent='That file does not look like an export from this page (no "name" column).';return;}
+      rows.slice(0,200).forEach(function(r){var o={};head.forEach(function(h,i){o[h]=(r[i]||'').replace(/^'(?=[=+\-@])/,'').slice(0,140);});
+        if(o.name){pilots.push(mk(o));n++;}});
+      save();render();saved.textContent='Imported '+n+' brand'+(n===1?'':'s')+'.';imp.value='';
+    };rd.readAsText(f);
+  });
+  load();render();
 })();
 </script>
 </body>
